@@ -9,12 +9,17 @@ import projectManagement.ConnectionManager;
 
 public class main {
 
-	public static void main(String[] args)   {
+	public static void main(String[] args) throws SQLException   {
 
 		AnnouncementManager A1 = new AnnouncementManager();
-	//	AnnouncementManager.addUser();
-		AnnouncementManager.seConnecter();
-
+      //A1.addUser();
+	//	A1.seConnecter();
+    //  A1.addAnnonce();
+    //  A1.ModifUser();	
+	//  A1.afficherAnnonces();
+	//  A1.DeleteAnnoce();
+	//  A1.ModifAnnonce();
+	    A1.afficherUsers();
 	}
 
 }

@@ -52,7 +52,7 @@ public class AnnouncementManager {
     	
     	Scanner Sc6 = new Scanner(System.in);
     	System.out.println("inserer votre mot de passe :");
-    	String password=Sc6.nextLine();
+   	    String password=Sc6.nextLine();
     	
     	Scanner Sc7 = new Scanner(System.in);
     	System.out.println("inserer votre numero de telephone :");
@@ -66,56 +66,177 @@ public class AnnouncementManager {
     	System.out.println("inserer votre le numero de votre role :"+"\n"+"1- Client"+"\n");
     	int roleId=Sc9.nextInt();
     	
-    	System.out.println(id+prenom+nom+pseudo+mail+password+numTel+adresse+roleId);
     	
-    	requete= "INSERT INTO user VALUES ("+id+","+prenom+","+nom+","+pseudo+","+mail+","+password+","+numTel+","+adresse+","+roleId+ ");";
+    	
+    	requete= "INSERT INTO vintud.user VALUES ("+id+",'"+prenom+"','"+nom+"','"+pseudo+"','"+mail+"','"+password+"','"+numTel+"','"+adresse+"',"+roleId+" );";
     	try {
     		Statement stmt = con.createStatement();
 	        stmt.executeUpdate(requete) ;
 	        
 	         System.out.println("User ajouté avec succés");
-	         resultats.close();
+	         
 			} catch (SQLException e) {
 				arret("Anomalie lors de l'execution de la requête") ;
 			}
-		affiche("fin du programme");
+		
 	      System.exit(0);
     		   		  	
     }
     
     public static void seConnecter () {
     	
-    	Scanner sc = new Scanner(System.in);
-    	String pw =sc.nextLine();
-    	requete = "SELECT * FROM user";
+    //	Scanner sc = new Scanner(System.in);
+   // 	System.out.println("Saisir Mot de passe :");
+    	String pw ="unmotdepassedepirate";
+    	String Mail="johnyPirate@Cara.com";
+    	requete = "SELECT * FROM vintud.user WHERE u_password = "+ pw +" AND mail = "+Mail+ "; ";
 		try {
 			
 		Statement stmt = con.createStatement();
 		resultats = stmt.executeQuery(requete);
 		boolean encore = resultats.next();
-		boolean connecte = false;
+		
 		while (encore) 
 		{
           if (pw .equals(resultats.getString("u_password"))) { 	   
-		  System.out.println("Connexion avec succes");
-          connecte = true;
+		  
+          System.out.println("Connexion avec succes");
+          
           }else {
         	  encore=resultats.next();
           }
-          if (connecte=false);
-          throw new Exception("Mot de passe incorrete");
+          
           }
 		resultats.close();
-		} catch (Exception E ){
-			E.printStackTrace();
+		} catch (SQLException e ){
+			arret("Mot de passe incorrecte");
 					
 		}
+    }
+    
+    public void ModifUser() throws SQLException {
+		String requete = "UPDATE vintud.user SET firstname='Mahmooood' where id =4;";
+		try {
+		Statement tmt = con.createStatement();
+		int resultat = tmt.executeUpdate(requete);
+
+		if (resultat>0)
+		{
+		System.out.println("updated user into the table...");
+		}
+		con.close();
+		}
+		catch (SQLException e)
+		{
+		e.printStackTrace();
+		}
+		}
+
+    public void afficherUsers() throws SQLException {
+
+    	String requete = "select * from vintud.user";
+
+    	try {
+
+    	Statement stmt = con.createStatement();
+    	resultats = stmt.executeQuery(requete);
+    	System.out.println("Affichage des users :"+ " \n");
+
+    	while(resultats.next())
+    	{
+    	System.out.println("User n°"+resultats.getInt("id")+" :");
+    	System.out.println( resultats.getString("firstname") + " \n" + resultats.getString("name") + "\n" + resultats.getString("pseudo") + "\n" + resultats.getString("mail")+ " \n" + resultats.getString("phone")+ " \n" + resultats.getString("address")+" \n");
+    	
+    	}
+    	resultats.close();
 
 
+    	} catch (SQLException e) {
+
+    		arret("Anomalie lors de l'execution de la requête");
+    	}
+    	}
+    
+    public void afficherAnnonces() throws SQLException {
+
+    	String requete = "select * from vintud.announcement";
+
+    	try {
+
+    	Statement tmt = con.createStatement();
+    	resultats = tmt.executeQuery(requete);
+    	System.out.println("Affichage des Annonces"+ " \n");
+
+    	while(resultats.next())
+    	{
+    	System.out.println(resultats.getString("title")+ " \n"+ resultats.getString("description") + " \n" + resultats.getInt("category_id") + "\n" + resultats.getBoolean("is_available") + "\n" + resultats.getInt("view_number" )+ " \n");
+
+
+
+    	}
+    	resultats.close();
+
+
+    	} catch (SQLException e) {
+
+    		arret("Anomalie lors de l'execution de la requête");
+    	}
+    	}
+    
+    
+    public void addAnnonce() throws SQLException{
+    	requete= "INSERT INTO vintud.announcement VALUES (3,'ceinture gucci neuve','Je vends ma ceinture',1,23.46,NULL,'2021-01-25 8:32:32',true,23,'Mornaguia 1110',5 );";
+    	try {
+    		Statement stmt = con.createStatement();
+	        stmt.executeUpdate(requete) ;
+	        
+	         System.out.println("Annonce ajouté avec succés");
+	         
+			} catch (SQLException e) {
+				arret("Anomalie lors de l'execution de la requête") ;
+			}
+		
+	      System.exit(0);
     	
     	
     	
     }
+    
+    public void DeleteAnnoce() throws SQLException {
+
+    	String requete = "DELETE FROM vintud.announcement WHERE title='t-shirt lacuste bon état'";
+    	try {
+    	Statement stmt = con.createStatement();
+    	stmt.executeUpdate(requete);
+
+    	
+    	
+    	System.out.println(" Annonce supprime ");
+    	
+    	con.close();
+    	}
+    	catch (SQLException e)
+    	{
+    		arret("Anomalie lors de l'execution de la requête");
+    	} }
+    	
+    public void ModifAnnonce() throws SQLException {
+    	requete = "UPDATE vintud.announcement SET title='Jordan etat neuf' where id =2;";
+    	try {
+    	Statement stmt = con.createStatement();
+    	stmt.executeUpdate(requete);
+    	
+    	System.out.println("updated Annonce into the table...");
+    	
+    	con.close();
+    	}
+    	catch (SQLException e)
+    	{
+    		arret("Anomalie lors de l'execution de la requête");
+    	}
+    	}
+    
+    
     
     
     
