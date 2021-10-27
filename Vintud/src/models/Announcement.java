@@ -13,10 +13,10 @@ public class Announcement implements AnnouncementImpl{
 	private String title  ;
 	private String description  ;
 	private int category_id  ;
-	private float price ;
+	private double price ;
 	private byte[] picture ;
 	private Date publication_date ; 
-	private float is_available  ;
+	private boolean is_available  ;
 	private int view_number  ;
 	private String localisation  ;
 	private int user_id  ;
@@ -26,8 +26,8 @@ public class Announcement implements AnnouncementImpl{
 	}
 
 
-	public Announcement(int id, String title, String description, int category_id, float price, byte[] picture,
-			Date publication_date, float is_available, int view_number, String localisation, int user_id) {
+	public Announcement(int id, String title, String description, int category_id, double price, byte[] picture,
+			Date publication_date, boolean is_available, int view_number, String localisation, int user_id) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -82,12 +82,12 @@ public class Announcement implements AnnouncementImpl{
 	}
 
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -112,12 +112,12 @@ public class Announcement implements AnnouncementImpl{
 	}
 
 
-	public float getIs_available() {
+	public boolean getIs_available() {
 		return is_available;
 	}
 
 
-	public void setIs_available(float is_available) {
+	public void setIs_available(boolean is_available) {
 		this.is_available = is_available;
 	}
 

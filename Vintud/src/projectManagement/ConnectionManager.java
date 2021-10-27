@@ -9,7 +9,7 @@ public class ConnectionManager {
     private static String url = "jdbc:postgresql://localhost:5432/vintud";
     private static String driverName = "org.postgresql.Driver";
     private static String username = "postgres";
-    private static String password = "DkPB7D+";
+    private static String password = "RaMa53861!?#";
     private static Connection con;
     private static String urlstring;
 
